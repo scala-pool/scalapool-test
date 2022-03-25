@@ -1,0 +1,12 @@
+{
+	"coins" : {
+		"coin2" : {
+			"mock_key" : "mock_value"
+		}
+	},
+	"datasource" : {
+		"mock_ds" : {
+			"mock_ds_key" : "mock_ds_value"
+		}
+	}
+}
