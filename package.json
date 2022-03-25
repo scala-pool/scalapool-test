@@ -15,7 +15,6 @@
     "ava": "^4.0.1",
     "ioredis": "^4.28.5",
     "lodash": "^4.17.21",
-    "node-fetch": "^2.6.7",
-    "scalapool": "file:../scalapool-core"
+    "node-fetch": "^2.6.7"
   }
 }
