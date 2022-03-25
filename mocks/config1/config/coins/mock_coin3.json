@@ -1,0 +1,10 @@
+{
+	"coins" : {
+		"coin3" : {
+			"mock_key" : "mock_value"
+		}
+	},
+	"override" : {
+		"mock_override_key" : "mock_override_value"
+	}
+}

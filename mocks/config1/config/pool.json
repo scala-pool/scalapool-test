@@ -1,0 +1,6 @@
+{
+	"pool" : {
+		"enabled" : true,
+		"config1" : "value1"
+	}
+}

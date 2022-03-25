@@ -1,0 +1,6 @@
+{
+	"api" : {
+		"enabled" : false,
+		"config2" : "value2"
+	}
+}
