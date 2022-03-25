@@ -1,74 +1,74 @@
-var net = require('net');
-var path = require('path');
+const net = require('net');
+const path = require('path');
 require('scalapool')({
-	coin: "tst",
-	config:{
-		"coin" :{ 
-	        "ticker" : "TEST", 
-	        "name": "Pool Test", 
-	        "symbol": "TEST",
-	        "algo" : ["test"],
-	        "coinUnits":100, 
-	        "coinDifficultyTarget": 120, 
-	        "className" : "@scalapool/abstracts/coin", 
-	        "classUtil" : "@scalapool/abstracts/coin_util" 
-	    }, 
-	    "datasources" : { 
-	        "redis": {
-				"host": "127.0.0.1",
-				"port": 6379,
-				"db":0,
-				"keepalive" : true,
-				"username" : null,
-				"password" :  null,
-				"disableVersionCheck" : true
+	coin: 'tst',
+	config: {
+		coin: {
+	        ticker: 'TEST',
+	        name: 'Pool Test',
+	        symbol: 'TEST',
+	        algo: ['test'],
+	        coinUnits: 100,
+	        coinDifficultyTarget: 120,
+	        className: '@scalapool/abstracts/coin',
+	        classUtil: '@scalapool/abstracts/coin_util'
+	    },
+	    datasources: {
+	        redis: {
+				host: '127.0.0.1',
+				port: 6379,
+				db: 0,
+				keepalive: true,
+				username: null,
+				password: null,
+				disableVersionCheck: true
 			}
 	    }
 	}
 });
 const redis = global.ds.redis;
 
-var client = new net.Socket({writeable: true}); //writeable true does not appear to help
+const client = new net.Socket({ writeable: true }); // writeable true does not appear to help
 const send = obj => {
-	client.write(JSON.stringify(obj) + "\n")
-}
+	client.write(JSON.stringify(obj) + '\n');
+};
 let onlogin = false;
 let intervals = null;
 
-redis.set("test:blockTemplate:test", JSON.stringify({
+redis.set('test:blockTemplate:test', JSON.stringify({
 	height: 1
 }), (error, reply) => {
-	client.connect(3333, '127.0.0.1', function() {
+	client.connect(3333, '127.0.0.1', function () {
 		console.log('Connected');
 		onlogin = true;
 		send({
-			method:"login",
-			id: "0",
+			method: 'login',
+			id: '0',
 			params: {
-				login:"HelloWorld",
-				pass:""
+				login: 'HelloWorld',
+				pass: ''
 			}
 		});
 	});
 	let minerId = null;
 	let getJob = true;
-	client.on('data', function(data) {
+	client.on('data', function (data) {
 		const replies = JSON.parse(data);
-		if(replies.error) {
+		if (replies.error) {
 			console.log(replies.error);
 			return;
 		}
-		if(replies.result.status === "KEEPALIVE" || replies.result.status === "KEEPALIVED") return;
-		if(onlogin) {
+		if (replies.result.status === 'KEEPALIVE' || replies.result.status === 'KEEPALIVED') return;
+		if (onlogin) {
 			onlogin = false;
-			minerId =  replies.result.id;
-			if(replies.result.status == "OK") {
+			minerId = replies.result.id;
+			if (replies.result.status == 'OK') {
 				intervals = setInterval(() => {
 					send({
-						method:"keepalived",
+						method: 'keepalived',
 						id: minerId,
-						params : {
-							id: minerId,
+						params: {
+							id: minerId
 
 						}
 					});
@@ -82,52 +82,44 @@ redis.set("test:blockTemplate:test", JSON.stringify({
 
 				// 	}
 				// });
-
 			}
-		} else if(getJob) {
+		} else if (getJob) {
 			getJob = false;
 			setTimeout(() => {
 				send({
-					method:"getJob",
+					method: 'getJob',
 					id: minerId,
-					params : {
-						id: minerId,
-						
+					params: {
+						id: minerId
+
 					}
 				});
-			},1000);
-			
-
+			}, 1000);
 		} else {
 			getJob = true;
 			setTimeout(() => {
 				send({
-					method:"submit",
+					method: 'submit',
 					id: minerId,
-					params : {
-						id: minerId,
+					params: {
+						id: minerId
 
 					}
 				});
-			},2000);
+			}, 2000);
 		}
-
-
-
 	});
 
-	client.on('close', function() {
+	client.on('close', function () {
 		console.log('Connection closed');
-		if(intervals) clearInterval(intervals);
+		if (intervals) clearInterval(intervals);
 		process.exit();
 	});
 
-	client.on('error', function(err) {
-		if(intervals) clearInterval(intervals);
+	client.on('error', function (err) {
+		if (intervals) clearInterval(intervals);
 		console.error('Connection error: ' + err);
 		console.error(new Error().stack);
 		process.exit();
 	});
-
-})
-
+});

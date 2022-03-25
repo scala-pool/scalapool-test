@@ -74,8 +74,6 @@ test(category + ' : load (default coins)', t => {
 	t.is(config.coins.xla.rpc.wallet.host, '127.0.0.1');
 	t.is(config.coins.xla.rpc.daemon.port, 11812);
 	t.is(config.coins.xla.rpc.wallet.port, 11810);
-	t.true('cmcId' in config.coins.xla);
-	t.is(config.coins.xla.cmcId, 2629);
 });
 
 /** Tests with default config **/
