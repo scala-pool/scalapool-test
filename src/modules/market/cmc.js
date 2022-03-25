@@ -53,6 +53,6 @@ test(category + ' data 2', async t => {
 	t.true('USD' in market.dataStored.xla);
 	t.true('LTC' in market.dataStored.xla);
 	t.true('BTC' in market.dataStored.xla);
-	t.true('XMR' in market.dataStored.xla);
 	t.true('EUR' in market.dataStored.xla);
+	t.true('XMR' in market.dataStored.xla);
 });
