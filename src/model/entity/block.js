@@ -4,7 +4,7 @@ const test = require('ava');
 const category = __filename.replace(process.cwd(), '');
 const Ajv = require('ajv');
 const ajv = new Ajv();
-const Block = require('@scalapool/db/model/block');
+const Block = require('@scalapool/model/entity/block');
 
 const validate = ajv.compile({
 	type: 'object',

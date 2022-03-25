@@ -27,7 +27,7 @@ CoinManager.loadConfig({
 	xla: {}
 });
 
-const Pool = require('@scalapool/db/pool');
+const Pool = require('@scalapool/model/pool');
 const pool = new Pool();
 
 test(category + ':  getBlockStats', async t => {

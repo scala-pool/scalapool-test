@@ -35,12 +35,20 @@ const schema = {
 			}
 		},
 		coin: {
-			name: { type: 'string' },
-			units: { type: 'number' },
-			decimalPlaces: { type: 'number' },
-			difficultyTarget: { type: 'number' },
-			symbol: { type: 'string' },
-			depth: { type: 'number' }
+			type: 'object',
+			required: [
+				'name', 'units',
+				'decimalPlaces', 'difficultyTarget',
+				'symbol', 'depth'
+			],
+			properties : {
+				name: { type: 'string' },
+				units: { type: 'number' },
+				decimalPlaces: { type: 'number' },
+				difficultyTarget: { type: 'number' },
+				symbol: { type: 'string' },
+				depth: { type: 'number' }
+			}
 		},
 		config: {
 			type: 'object',
@@ -138,7 +146,6 @@ test(category + ' : schema', t => {
 
 	const ajv = new Ajv();
 	const validate = ajv.compile(schema);
-	const valid = validate(response);
-	if (!valid) console.log(validate.errors);
-	t.true(valid);
+	validate(response);
+	t.is(validate.errors, null);
 });

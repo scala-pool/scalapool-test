@@ -1,20 +1,22 @@
+'use strict';
+require('module-alias/register');
 const net = require('net');
 const path = require('path');
-require('scalapool')({
+require('@scalapool')({
 	coin: 'tst',
 	config: {
 		coin: {
-	        ticker: 'TEST',
-	        name: 'Pool Test',
-	        symbol: 'TEST',
-	        algo: ['test'],
-	        coinUnits: 100,
-	        coinDifficultyTarget: 120,
-	        className: '@scalapool/abstracts/coin',
-	        classUtil: '@scalapool/abstracts/coin_util'
-	    },
-	    datasources: {
-	        redis: {
+			ticker: 'TEST',
+			name: 'Pool Test',
+			symbol: 'TEST',
+			algo: ['test'],
+			coinUnits: 100,
+			coinDifficultyTarget: 120,
+			className: '@scalapool/abstracts/coin',
+			classUtil: '@scalapool/abstracts/coin_util'
+		},
+		datasources: {
+			redis: {
 				host: '127.0.0.1',
 				port: 6379,
 				db: 0,
@@ -23,7 +25,7 @@ require('scalapool')({
 				password: null,
 				disableVersionCheck: true
 			}
-	    }
+		}
 	}
 });
 const redis = global.ds.redis;

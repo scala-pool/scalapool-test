@@ -8,6 +8,7 @@ const Ajv = require('ajv');
 const Stats = require('@scalapool/modules/api/routes/stats');
 const stats = new Stats();
 const CoinManager = require('@scalapool/core/coin_manager');
+
 test(category + ' : query', t => {
 	const ajv = new Ajv();
 	const validate = ajv.compile(stats.schema.get.querystring);
@@ -68,7 +69,18 @@ test(category + ' : getHandler without address', async t => {
 	CoinManager.loadConfig({
 		xla: {}
 	}, true);
-	Stats.Stats = { xla: 'Some data' };
+	Stats.Stats = { xla: {
+		key : 'value'
+	}};
+	global.model = {
+		pool : {
+			getConfig : () => {
+				return {
+					key2: "value2"
+				}
+			}
+		}
+	}
 	const handler = async () => new Promise((resolve, reject) => {
 		stats.getHandler({
 			query: {
@@ -80,6 +92,15 @@ test(category + ' : getHandler without address', async t => {
 		}).catch(reject);
 	});
 
-	const out = await handler().catch(e => console.log(e.message));
-	t.is(out, 'Some data');
+	const response = await handler().catch(e => console.log(e.message));
+	const ajv = new Ajv();
+	const validate = ajv.compile({
+		type : 'object',
+		properties: {
+			key: { type : 'string' },
+			config : { type : 'object' }
+		}
+	});
+	validate(response);
+	t.is(validate.errors, null);
 });
