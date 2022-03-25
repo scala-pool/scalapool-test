@@ -1,6 +1,0 @@
-{
-	"override" : {
-		"mock_override_key" : "mock_no_display_value",
-		"mock_display_key" : "mock_display_value"
-	}
-}
