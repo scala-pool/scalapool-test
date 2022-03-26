@@ -203,7 +203,6 @@ test(category + ' : schema', t => {
 				port: 8888,
 				difficulty: {
 					'xla:panthera': 250000,
-					'xla:panthera': 250000,
 					'veil:x16rt' : 250000,
 					'rtm:ghostrider' : 250000
 				},
