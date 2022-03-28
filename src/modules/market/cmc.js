@@ -46,7 +46,6 @@ test(category + ' data 1', async t => {
 test(category + ' data 2', async t => {
 	const market = new CoinMarketCapTest({
 		symbols: ['USD', 'LTC', 'BTC', 'EUR', 'XMR'],
-		isSandBox: true
 	});
 	await market.fetch();
 	t.true('xla' in market.dataStored);

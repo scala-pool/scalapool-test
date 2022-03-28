@@ -33,11 +33,22 @@ test.skip(category + ' : getInfo', t => {
 
 });
 
-test.skip(category + ' : getHandler without coin query', async t => {
+test(category + ' : getHandler without coin query', async t => {
 	CoinManager.loadConfig({
 		xla: {}
 	}, true);
-	Stats.Stats = { xla: 'Some data' };
+	Stats.Stats = { xla: {
+		key : 'value'
+	}};
+	global.model = {
+		pool : {
+			getConfig : () => {
+				return {
+					key2: "value2"
+				}
+			}
+		}
+	}
 	const handler = async () => new Promise((resolve, reject) => {
 		stats.getHandler({
 			query: {}
@@ -49,11 +60,20 @@ test.skip(category + ' : getHandler without coin query', async t => {
 	t.is(error.message, 'Missing coin params');
 });
 
-test.skip(category + ' : getHandler without coin data', async t => {
+test(category + ' : getHandler without coin data', async t => {
 	CoinManager.loadConfig({
 		xla: {}
 	}, true);
 	Stats.Stats = {};
+	global.model = {
+		pool : {
+			getConfig : () => {
+				return {
+					key2: "value2"
+				}
+			}
+		}
+	}
 	const handler = async () => new Promise((resolve, reject) => {
 		stats.getHandler({
 			query: { coin: 'xla' }
