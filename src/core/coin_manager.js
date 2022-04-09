@@ -87,3 +87,23 @@ test(category + ' : listCoinsByAlgo', t => {
 	const coins = CoinManager.listCoinsByAlgo('panthera');
 	t.true(coins.indexOf('xla') >= 0);
 });
+
+test(category + ' : getBestCoins', t => {
+	CoinManager.setCoinEarn({
+		xla : 1, 
+		xmr : 2
+		xhv : 3,
+		msr : 4
+	});
+	const coin = CoinManager.getBestCoin([]);
+	t.is(coin.constructor.name, 'Msr');
+
+
+	const coin = CoinManager.getBestCoin(['panthera']);
+
+	t.is(coin.constructor.name, 'Xla');
+
+	const coin = CoinManager.getBestCoin(['panthera', 'randomx']);
+
+	t.is(coin.constructor.name, 'Xmr');
+});
