@@ -74,7 +74,7 @@ test(category + ' : load (default coins)', t => {
 	t.is(config.coins.xla.rpc.wallet.host, '127.0.0.1');
 	t.is(config.coins.xla.rpc.daemon.port, 11812);
 	t.is(config.coins.xla.rpc.wallet.port, 11810);
-	t.todo("Check pool wallet address");
+	t.true('walletAddress' in config.coins.xla);
 });
 
 /** Tests with default config **/
