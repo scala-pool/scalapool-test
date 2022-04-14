@@ -37,18 +37,20 @@ test(category + ' : getHandler without coin query', async t => {
 	CoinManager.loadConfig({
 		xla: {}
 	}, true);
-	Stats.Stats = { xla: {
-		key : 'value'
-	}};
+	Stats.Stats = {
+		xla: {
+			key: 'value'
+		}
+	};
 	global.model = {
-		pool : {
-			getConfig : () => {
+		pool: {
+			getConfig: () => {
 				return {
-					key2: "value2"
-				}
+					key2: 'value2'
+				};
 			}
 		}
-	}
+	};
 	const handler = async () => new Promise((resolve, reject) => {
 		stats.getHandler({
 			query: {}
@@ -66,14 +68,14 @@ test(category + ' : getHandler without coin data', async t => {
 	}, true);
 	Stats.Stats = {};
 	global.model = {
-		pool : {
-			getConfig : () => {
+		pool: {
+			getConfig: () => {
 				return {
-					key2: "value2"
-				}
+					key2: 'value2'
+				};
 			}
 		}
-	}
+	};
 	const handler = async () => new Promise((resolve, reject) => {
 		stats.getHandler({
 			query: { coin: 'xla' }
@@ -89,18 +91,20 @@ test(category + ' : getHandler without address', async t => {
 	CoinManager.loadConfig({
 		xla: {}
 	}, true);
-	Stats.Stats = { xla: {
-		key : 'value'
-	}};
+	Stats.Stats = {
+		xla: {
+			key: 'value'
+		}
+	};
 	global.model = {
-		pool : {
-			getConfig : () => {
+		pool: {
+			getConfig: () => {
 				return {
-					key2: "value2"
-				}
+					key2: 'value2'
+				};
 			}
 		}
-	}
+	};
 	const handler = async () => new Promise((resolve, reject) => {
 		stats.getHandler({
 			query: {
@@ -115,10 +119,10 @@ test(category + ' : getHandler without address', async t => {
 	const response = await handler().catch(e => console.log(e.message));
 	const ajv = new Ajv();
 	const validate = ajv.compile({
-		type : 'object',
+		type: 'object',
 		properties: {
-			key: { type : 'string' },
-			config : { type : 'object' }
+			key: { type: 'string' },
+			config: { type: 'object' }
 		}
 	});
 	validate(response);

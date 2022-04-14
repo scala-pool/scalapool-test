@@ -28,11 +28,11 @@ module.exports = {
 		coin: {
 			type: 'object',
 			required: [
-			'name', 'units',
-			'decimalPlaces', 'difficultyTarget',
-			'symbol', 'depth'
+				'name', 'units',
+				'decimalPlaces', 'difficultyTarget',
+				'symbol', 'depth'
 			],
-			properties : {
+			properties: {
 				name: { type: 'string' },
 				units: { type: 'number' },
 				decimalPlaces: { type: 'number' },
@@ -44,10 +44,10 @@ module.exports = {
 		config: {
 			type: 'object',
 			required: [
-			'supportedCoins', 'version',
-			'supportedPayments', 'ports', 'hashrateWindow',
-			'donations', 'devFee', 'networkFee', 'transferFee',
-			'dynamicTransferFee', 'paymentsInterval', 'unlockBlockReward'
+				'supportedCoins', 'version',
+				'supportedPayments', 'ports', 'hashrateWindow',
+				'donations', 'devFee', 'networkFee', 'transferFee',
+				'dynamicTransferFee', 'paymentsInterval', 'unlockBlockReward'
 			],
 			additionalProperties: false,
 			properties: {
@@ -69,7 +69,7 @@ module.exports = {
 						}
 					}
 				},
-				version: { type : 'string' },
+				version: { type: 'string' },
 				hashrateWindow: { type: 'number' },
 				donations: { type: 'number' },
 				devFee: { type: 'number' },

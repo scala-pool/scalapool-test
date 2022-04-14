@@ -91,20 +91,20 @@ test(category + ' : listCoinsByAlgo', t => {
 test(category + ' : getBestCoins', t => {
 	CoinManager.setCoinEarn({
 		xla : 1, 
-		xmr : 2
+		xmr : 2,
 		xhv : 3,
 		msr : 4
 	});
 	
-	const coin = CoinManager.getBestCoin([]);
+	let coin = CoinManager.getBestCoin([]);
 	t.is(coin.constructor.name, 'Msr');
 
 
-	const coin = CoinManager.getBestCoin(['panthera']);
+	coin = CoinManager.getBestCoin(['panthera']);
 
 	t.is(coin.constructor.name, 'Xla');
 
-	const coin = CoinManager.getBestCoin(['panthera', 'randomx']);
+	coin = CoinManager.getBestCoin(['panthera', 'randomx']);
 
 	t.is(coin.constructor.name, 'Xmr');
 });
