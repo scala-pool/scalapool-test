@@ -95,6 +95,7 @@ test(category + ' : getBestCoins', t => {
 		xhv : 3,
 		msr : 4
 	});
+	
 	const coin = CoinManager.getBestCoin([]);
 	t.is(coin.constructor.name, 'Msr');
 
