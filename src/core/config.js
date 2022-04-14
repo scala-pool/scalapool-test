@@ -126,23 +126,18 @@ test(category + ' : check default (api)', t => {
 
 test(category + ' : check default (pool)', t => {
 	const config = Config.load();
-	try {
-		t.true('pool' in config);
-		Config.check('pool', config.pool);
-		// t.true('threads' in config.pool); // this is optional
-		t.true('ports' in config.pool);
-		for(let port in config.pool.ports) {
-			t.true('port' in port);
-			t.true('poolType' in port);
-			t.true('desc' in port);
-			t.true('difficulty' in port);
-			for(let k in Object.keys(port.difficulty)){
-				t.is(k,"xla:panthera");
-			}
+	
+	// t.true('threads' in config.pool); // this is optional
+	t.true('pool' in config);
+	t.true('ports' in config.pool);
+	for(let port of config.pool.ports) {
+		t.true('port' in port);
+		t.true('poolType' in port);
+		t.true('desc' in port);
+		t.true('difficulty' in port);
+		for(let k of Object.keys(port.difficulty)){
+			t.is(k,"xla:panthera");
 		}
-	} catch (e) {
-		t.fail(e.message);
-		return;
 	}
-	t.pass();
+	
 });
