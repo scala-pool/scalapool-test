@@ -90,15 +90,14 @@ test(category + ' : listCoinsByAlgo', t => {
 
 test(category + ' : getBestCoins', t => {
 	CoinManager.setCoinEarn({
-		xla : 1, 
-		xmr : 2,
-		xhv : 3,
-		msr : 4
+		xla: 1,
+		xmr: 2,
+		xhv: 3,
+		msr: 4
 	});
-	
+
 	let coin = CoinManager.getBestCoin([]);
 	t.is(coin.constructor.name, 'Msr');
-
 
 	coin = CoinManager.getBestCoin(['panthera']);
 
